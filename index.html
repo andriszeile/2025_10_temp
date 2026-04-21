@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="lv">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Temperatūras ieraksti</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Temperatūras ieraksti</h1>
+      <div class="sub">Pievieno dienas min/max un apskati vidējās vērtības sarakstā</div>
+    </header>
+
+    <div class="grid">
+      <!-- Kreisais panelis -->
+      <section class="card" aria-label="Ievade">
+        <div class="card-head">
+          <div class="card-title">Pievienot ierakstu</div>
+          <div class="pill">Datums + min/max</div>
+        </div>
+        <div class="card-body">
+          <form action="#" method="post">
+            <div class="field">
+              <label for="d">Datums</label>
+              <input id="d" name="datums" type="date" />
+            </div>
+
+            <div class="field">
+              <label for="tmin">Mazākā temperatūra (°C)</label>
+              <input id="tmin" name="minTemp" type="number" step="0.1" placeholder="piem. -5" />
+            </div>
+
+            <div class="field">
+              <label for="tmax">Lielākā temperatūra (°C)</label>
+              <input id="tmax" name="maxTemp" type="number" step="0.1" placeholder="piem. 3" />
+            </div>
+
+            <div class="actions">
+              <button class="btn" type="submit">Pievienot</button>
+              <button class="btn-ghost" type="reset">Notīrīt</button>
+            </div>
+
+            <div class="hint">
+              Vidējo temperatūru parasti rēķina kā <b>(min + max) / 2</b>.
+              (Datu saglabāšanu/izvadi vari pieslēgt ar Flask.)
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Labā puse: kopsavilkums + tabula -->
+      <section class="right" aria-label="Saraksts">
+        <div class="card">
+          <div class="summary-bar">
+            <p class="summary-title">Vidējā temperatūra visām dienām</p>
+            <div id="avg_all" class="summary-value">0.00</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Temperatūru saraksts</div>
+            <div class="pill">Ieraksti + vidējā</div>
+          </div>
+
+          <div class="table-wrap">
+            <table aria-label="Temperatūru saraksts">
+              <thead>
+                <tr>
+                  <th>Datums</th>
+                  <th class="num">Min</th>
+                  <th class="num">Max</th>
+                  <th class="num">Vidējā</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Piemēra rindas 
+                <tr>
+                  <td class="date">2024-12-05</td>
+                  <td class="num">23</td>
+                  <td class="num">44</td>
+                  <td class="num"><span class="avg-badge"><span class="dot"></span>33.50</span></td>
+                </tr>
+                <tr>
+                  <td class="date">2026-01-06</td>
+                  <td class="num">-5</td>
+                  <td class="num">25</td>
+                  <td class="num"><span class="avg-badge"><span class="dot"></span>10.00</span></td>
+                </tr>
+                <tr>
+                  <td class="date">2026-01-07</td>
+                  <td class="num">-15</td>
+                  <td class="num">5</td>
+                  <td class="num"><span class="avg-badge"><span class="dot"></span>-5.00</span></td>
+                </tr>
+                <tr>
+                  <td class="date">2026-01-01</td>
+                  <td class="num">-25</td>
+                  <td class="num">35</td>
+                  <td class="num"><span class="avg-badge"><span class="dot"></span>5.00</span></td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
