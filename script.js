@@ -8,12 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const avg_summary = document.getElementById("avg_all");
     const add_btn = document.querySelector(".btn");
 
+    const STORAGE_KEY = "temperature_records1"
+
     if (!dateE1 || !minE1 || !maxE1 || !form || !tbody || !avg_summary || !add_btn) {
         console.warn("Trūkst obligātais elements.");
         return;
     }
 
-    let records = readRecordsFromTable(tbody);
+    let records = loadRecords();
+    renderTable(tbody, records);
     renderOverallAverage(avg_summary, records);
 
     form.addEventListener("submit", (e) => {
@@ -31,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const newRecord = { date, min, max };
         records.push(newRecord);
-
+        saveRecords(records);
         renderTable(tbody, records);
         renderOverallAverage(avg_summary, records);
         form.reset();
@@ -72,6 +75,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const avgs = items.map((it) => calcDayAvg(it.min, it.max));
         const overall = avgs.length ? avgs.reduce((a, b) => a + b, 0) / avgs.length : 0;
         avg_summary.textContent = overall.toFixed(2);
+    }
+
+    function saveRecords(items) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    function loadRecords() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+
+        try {
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            console.error("Neizdevās nolasīt saglabātos datus:", error);
+            return [];
+        }
     }
 
     function readRecordsFromTable(tbodyE1) {
